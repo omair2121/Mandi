@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
+import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -82,51 +84,44 @@ class MainActivity : AppCompatActivity() {
             return false
         }
         if (binding.sellerNameEt.text.toString().isNullOrBlank()) {
-//            Toast.makeText(this, "Enter valid seller", Toast.LENGTH_SHORT).show()
             binding.sellerNameEt.error = "Mandatory"
             return false
         }
         if (weight == 0f) {
-//            Toast.makeText(this, "Enter valid weight", Toast.LENGTH_SHORT).show()
             binding.weightEt.error = "Mandatory"
             return false
         }
         return true
     }
 
+    private fun startDetailsActivity() {
+        val bundle = Bundle().apply {
+            putString(SELLER_NAME, binding.sellerNameEt.text.toString().trim())
+            putString(WEIGHT, binding.weightEt.text.toString().trim() + " " + binding.unitSp.selectedItem.toString() )
+            putString(AMOUNT, "$amount")
+        }
+        DetailsActivity.start(this, bundle)
+    }
+
     private fun listeners() {
         binding.sellBtn.setOnClickListener {
             if (!isValid()) return@setOnClickListener
-            val bundle = Bundle().apply {
-                putString(SELLER_NAME, binding.sellerNameEt.text.toString().trim())
-                putString(WEIGHT, binding.weightEt.text.toString().trim() + " " + binding.unitSp.selectedItem.toString() )
-                putString(AMOUNT, "$amount")
+            startDetailsActivity()
+        }
+
+        binding.sellerNameEt.onDoneClick {
+            viewModel.fetchInfoByName(binding.sellerNameEt.text.toString().trim())
+        }
+
+        binding.loyaltyEt.onDoneClick {
+            viewModel.fetchInfoById(binding.loyaltyEt.text.toString().trim())
+        }
+
+        binding.weightEt.onDoneClick { v ->
+            if (!v.text.isNullOrBlank()) {
+                weight = v.text.toString().toFloat()
+                calculateAmount()
             }
-            DetailsActivity.start(this, bundle)
-        }
-
-        binding.sellerNameEt.setOnEditorActionListener { v, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                viewModel.fetchInfoByName(binding.sellerNameEt.text.toString().trim())
-                true
-            } else false
-        }
-
-        binding.loyaltyEt.setOnEditorActionListener { v, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                viewModel.fetchInfoById(binding.loyaltyEt.text.toString().trim())
-                true
-            } else false
-        }
-
-        binding.weightEt.setOnEditorActionListener { v, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                if (!v.text.isNullOrBlank()) {
-                    weight = v.text.toString().toFloat()
-                    calculateAmount()
-                }
-                true
-            } else false
         }
 
         binding.villageSp.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -156,6 +151,15 @@ class MainActivity : AppCompatActivity() {
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
+        }
+    }
+
+    private fun EditText.onDoneClick(fn: (TextView) -> Unit) {
+        this.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                fn.invoke(v)
+                true
+            } else false
         }
     }
 
