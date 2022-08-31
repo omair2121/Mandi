@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="villages">
+        <item >Ramnagar</item>
+        <item >Jyotinagar</item>
+        <item >Neemgaon</item>
+        <item >Jhodge</item>
+        <item >Piplegaon</item>
+        <item >Kusumbe</item>
+        <item >Ravalgaon</item>
+    </string-array>
+    <string-array name="unit">
+        <item>Tonnes</item>
+        <item>Kilos</item>
+    </string-array>
+</resources>

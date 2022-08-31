@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailsActivity">
+
+    <ImageView
+        android:id="@+id/fruits_iv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/fruits"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.7" />
+
+    <TextView
+        android:id="@+id/thanku_tv"
+        style="@style/bold_text_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="26dp"
+        android:gravity="center"
+        android:text="@string/thank_u_seller"
+        android:textSize="25dp"
+        app:layout_constraintTop_toBottomOf="@id/fruits_iv" />
+
+    <TextView
+        style="@style/bold_text_style"
+        android:layout_width="match_parent"
+        android:id="@+id/subtitle_tv"
+        android:layout_height="wrap_content"
+        android:layout_margin="26dp"
+        android:gravity="center"
+        android:text="@string/please_ensuure"
+        android:textSize="16dp"
+        android:textStyle="normal"
+        app:layout_constraintTop_toBottomOf="@id/thanku_tv" />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/sell_more_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="@color/dark_green"
+        android:padding="14dp"
+        android:text="@string/sell_more"
+        app:cornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

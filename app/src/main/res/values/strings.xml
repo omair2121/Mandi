@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Formers</string>
+    <string name="seller_name">Seller Name</string>
+    <string name="ex_seller_1">Seller 1</string>
+    <string name="village">Village</string>
+    <string name="seller_loyalty">Loyalty Card Identifier</string>
+    <string name="gross_weight">Gross Weight</string>
+    <string name="gross_price">Gross Price</string>
+    <string name="applied_loyalty_index">Applied Loyalty Index : {index}</string>
+    <string name="sell_my_product">Sell My Product</string>
+    <string name="mandi">Mandi</string>
+    <string name="ex_weight">ex. 23</string>
+    <string name="thank_u_seller">Thank You {seller} for selling your quality product</string>
+    <string name="please_ensuure">Please ensure you received {amount} INR for {weight} of your produce</string>
+    <string name="sell_more">Sell more</string>
+    <string name="ex_loyalty_1">ex. S1000</string>
+</resources>
