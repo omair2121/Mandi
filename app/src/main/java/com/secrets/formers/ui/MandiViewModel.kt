@@ -15,6 +15,7 @@ class MandiViewModel(private val repo: MandiRepo): ViewModel() {
 
     private val villageList = repo.getVillageList()
 
+    fun getVillagesName() = mutableListOf<String>().apply {villageList.mapTo(this) { it.villageName } }
 
     fun fetchInfoVillageByName(village: String) {
         _selectedVillage.value = villageList.find { it.villageName.equals(village, true)}

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
@@ -29,6 +30,8 @@ class MainActivity : AppCompatActivity() {
         initSpinner()
         observers()
         listeners()
+
+
     }
 
     private lateinit var viewModel: MandiViewModel
@@ -158,6 +161,7 @@ class MainActivity : AppCompatActivity() {
         this.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 fn.invoke(v)
+                v.error = null
                 true
             } else false
         }
@@ -177,6 +181,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initSpinner() {
-        val list = viewModel.selectedVillage
+        val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, viewModel.getVillagesName())
+        binding.villageSp.adapter = arrayAdapter
     }
 }
