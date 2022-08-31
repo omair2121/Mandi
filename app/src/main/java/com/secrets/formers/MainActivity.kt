@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, MandiViewModelFactory(MandiRepo())).get(MandiViewModel::class.java)
     }
 
+
     private fun observers() {
         viewModel.selectedSeller.observe(this) {
             populateViews(it)
