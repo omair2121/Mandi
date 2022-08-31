@@ -1,4 +1,7 @@
-package com.secrets.formers
+package com.secrets.formers.data
+
+import com.secrets.formers.data.models.SellerModel
+import com.secrets.formers.data.models.VillageModel
 
 class MandiRepo {
 

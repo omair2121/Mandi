@@ -1,7 +1,9 @@
-package com.secrets.formers
+package com.secrets.formers.utils
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.secrets.formers.data.MandiRepo
+import com.secrets.formers.ui.MandiViewModel
 
 class MandiViewModelFactory(private val repo: MandiRepo): ViewModelProvider.NewInstanceFactory() {
 

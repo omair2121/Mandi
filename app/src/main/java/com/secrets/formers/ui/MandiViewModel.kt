@@ -1,8 +1,11 @@
-package com.secrets.formers
+package com.secrets.formers.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.secrets.formers.data.MandiRepo
+import com.secrets.formers.data.models.SellerModel
+import com.secrets.formers.data.models.VillageModel
 
 class MandiViewModel(private val repo: MandiRepo): ViewModel() {
     // village info

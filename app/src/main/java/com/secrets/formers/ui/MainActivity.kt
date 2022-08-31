@@ -1,4 +1,4 @@
-package com.secrets.formers
+package com.secrets.formers.ui
 
 import android.os.Bundle
 import android.view.View
@@ -7,9 +7,13 @@ import android.widget.AdapterView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.secrets.formers.DetailsActivity.Companion.AMOUNT
-import com.secrets.formers.DetailsActivity.Companion.SELLER_NAME
-import com.secrets.formers.DetailsActivity.Companion.WEIGHT
+import com.secrets.formers.data.MandiRepo
+import com.secrets.formers.utils.MandiViewModelFactory
+import com.secrets.formers.R
+import com.secrets.formers.ui.DetailsActivity.Companion.AMOUNT
+import com.secrets.formers.ui.DetailsActivity.Companion.SELLER_NAME
+import com.secrets.formers.ui.DetailsActivity.Companion.WEIGHT
+import com.secrets.formers.data.models.SellerModel
 import com.secrets.formers.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

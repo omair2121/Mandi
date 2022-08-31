@@ -1,9 +1,10 @@
-package com.secrets.formers
+package com.secrets.formers.ui
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.secrets.formers.R
 import com.secrets.formers.databinding.ActivityDetailsBinding
 
 class DetailsActivity : AppCompatActivity() {

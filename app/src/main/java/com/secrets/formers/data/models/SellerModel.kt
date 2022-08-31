@@ -1,4 +1,4 @@
-package com.secrets.formers
+package com.secrets.formers.data.models
 
 data class SellerModel(
     val sellerName: String,
