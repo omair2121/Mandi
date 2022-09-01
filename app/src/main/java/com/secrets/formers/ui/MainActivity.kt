@@ -69,8 +69,8 @@ class MainActivity : AppCompatActivity() {
         weight = if (!binding.weightEt.text.isNullOrBlank()) binding.weightEt.text.toString().toFloat() else 0f
 
         // villagePrice is of per kg,
-        if (binding.unitSp.selectedItem.toString() == "Tonnes") weight *= 1000
-        if (binding.unitSp.selectedItem.toString() == "Kilos") weight /= 1000
+        if (binding.unitSp.selectedItem.toString() == "Tonnes") villagePrice *= 1000
+//        if (binding.unitSp.selectedItem.toString() == "Kilos") weight /= 1000
 
 
         amount =  loyaltyPoints * villagePrice * weight
