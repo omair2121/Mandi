@@ -108,6 +108,10 @@ class MainActivity : AppCompatActivity() {
             startDetailsActivity()
         }
 
+        binding.clearTv.setOnClickListener {
+            resetViews()
+        }
+
         binding.sellerNameEt.onDoneClick {
             viewModel.fetchInfoByName(binding.sellerNameEt.text.toString().trim())
         }
@@ -139,6 +143,20 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun resetViews() {
+        binding.sellerNameEt.text.clear()
+        binding.loyaltyEt.text.clear()
+        binding.weightEt.text.clear()
+        binding.villageSp.setSelection(0)
+        binding.unitSp.setSelection(0)
+
+        amount = 0f
+        weight = 0f
+        loyaltyPoints = 0f
+        villagePrice = 0f
+        viewModel.resetValues()
+        initViews()
+    }
 
     private fun initViews() {
         setRoyaltyTv("--")

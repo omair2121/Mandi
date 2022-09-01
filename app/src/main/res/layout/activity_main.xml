@@ -106,6 +106,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
                 android:background="@drawable/bg_white_round">
 
                 <androidx.appcompat.widget.AppCompatSpinner
@@ -113,7 +114,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="0dp"
-                    android:layout_marginBottom="20dp"
                     app:layout_constraintTop_toTopOf="parent" />
                 android:entries="@array/villages"
 
@@ -226,10 +226,20 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="15dp"
             android:layout_marginTop="50dp"
-            android:layout_marginBottom="130dp"
             android:backgroundTint="@color/dark_green"
             android:padding="14dp"
             android:text="@string/sell_my_product"
+            app:cornerRadius="8dp" />
+        <TextView
+            android:id="@+id/clear_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="130dp"
+            android:padding="14dp"
+            android:text="@string/clear"
             app:cornerRadius="8dp" />
     </LinearLayout>
 

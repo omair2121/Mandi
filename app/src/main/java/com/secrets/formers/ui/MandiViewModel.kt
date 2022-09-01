@@ -59,4 +59,9 @@ class MandiViewModel(private val repo: MandiRepo): ViewModel() {
 
     fun getSellersLoyaltyIds() = mutableListOf<String>().apply {sellerList.mapTo(this) { it.loyaltyId } }
 
+    fun resetValues() {
+        _selectedSeller.value = null
+        _selectedVillage.value = null
+    }
+
 }

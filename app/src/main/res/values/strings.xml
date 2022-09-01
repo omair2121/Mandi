@@ -14,4 +14,5 @@
     <string name="please_ensuure">Please ensure you received {amount} INR for {weight} of your produce</string>
     <string name="sell_more">Sell more</string>
     <string name="ex_loyalty_1">ex. S1000</string>
+    <string name="clear">Clear</string>
 </resources>
