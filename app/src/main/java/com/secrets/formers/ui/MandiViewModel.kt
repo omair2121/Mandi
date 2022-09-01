@@ -54,4 +54,9 @@ class MandiViewModel(private val repo: MandiRepo): ViewModel() {
        _selectedSeller.value = sellerList.find { it.loyaltyId.equals(loyaltyId, true) }
     }
 
+
+    fun getSellersNames() = mutableListOf<String>().apply {sellerList.mapTo(this) { it.sellerName } }
+
+    fun getSellersLoyaltyIds() = mutableListOf<String>().apply {sellerList.mapTo(this) { it.loyaltyId } }
+
 }

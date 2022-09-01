@@ -1,24 +1,19 @@
 package com.secrets.formers.ui
 
 import android.os.Bundle
-import android.view.View
-import android.view.inputmethod.EditorInfo
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.Spinner
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatAutoCompleteTextView
 import androidx.lifecycle.ViewModelProvider
-import com.secrets.formers.data.MandiRepo
-import com.secrets.formers.utils.MandiViewModelFactory
 import com.secrets.formers.R
+import com.secrets.formers.data.MandiRepo
+import com.secrets.formers.data.models.SellerModel
+import com.secrets.formers.databinding.ActivityMainBinding
 import com.secrets.formers.ui.DetailsActivity.Companion.AMOUNT
 import com.secrets.formers.ui.DetailsActivity.Companion.SELLER_NAME
 import com.secrets.formers.ui.DetailsActivity.Companion.WEIGHT
-import com.secrets.formers.data.models.SellerModel
-import com.secrets.formers.databinding.ActivityMainBinding
+import com.secrets.formers.utils.MandiViewModelFactory
 import com.secrets.formers.utils.onDoneClick
 import com.secrets.formers.utils.onDropDownSelected
 
@@ -121,6 +116,13 @@ class MainActivity : AppCompatActivity() {
             viewModel.fetchInfoById(binding.loyaltyEt.text.toString().trim())
         }
 
+        binding.sellerNameEt.setOnItemClickListener { parent, view, position, id ->
+            viewModel.fetchInfoByName(binding.sellerNameEt.text.toString().trim())
+        }
+        binding.loyaltyEt.setOnItemClickListener { parent, view, position, id ->
+            viewModel.fetchInfoById(binding.loyaltyEt.text.toString().trim())
+        }
+
         binding.weightEt.onDoneClick { v ->
             if (!v.text.isNullOrBlank()) {
                 weight = v.text.toString().toFloat()
@@ -154,5 +156,17 @@ class MainActivity : AppCompatActivity() {
     private fun initSpinner() {
         val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, viewModel.getVillagesName())
         binding.villageSp.adapter = arrayAdapter
+
+        setupDropDown(binding.sellerNameEt, viewModel.getSellersNames())
+        setupDropDown(binding.loyaltyEt, viewModel.getSellersLoyaltyIds())
+    }
+
+    private fun setupDropDown(
+        loyaltyEt: AppCompatAutoCompleteTextView,
+        sellersLoyaltyIds: MutableList<String>
+    ) {
+        val sellerLoyaltyIdAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, sellersLoyaltyIds)
+        loyaltyEt.setAdapter(sellerLoyaltyIdAdapter)
+        loyaltyEt.threshold = 1
     }
 }

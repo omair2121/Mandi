@@ -38,7 +38,7 @@
                 android:layout_marginStart="3dp"
                 android:text="@string/seller_name" />
 
-            <EditText
+            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                 android:id="@+id/seller_name_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
                 android:layout_marginStart="3dp"
                 android:text="@string/seller_loyalty" />
 
-            <EditText
+            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                 android:id="@+id/loyalty_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
