@@ -15,8 +15,17 @@ class MandiViewModel(private val repo: MandiRepo): ViewModel() {
 
     private val villageList = repo.getVillageList()
 
+    /**
+     * it extracts village name from the model and provides a list,
+     * because ArrayAdapter only takes string list
+     */
     fun getVillagesName() = mutableListOf<String>().apply {villageList.mapTo(this) { it.villageName } }
 
+
+    /**
+     * this fun provides villageMode from the list which we got from repo
+     * @param village is the query which finds the village by villageName
+     */
     fun fetchInfoVillageByName(village: String) {
         _selectedVillage.value = villageList.find { it.villageName.equals(village, true)}
     }
@@ -28,10 +37,19 @@ class MandiViewModel(private val repo: MandiRepo): ViewModel() {
 
     private val sellerList = repo.getSellerList()
 
+    /**
+     * this fun provides sellerModel from the list which we got from repo
+     * @param sellerName is the query which finds the sellerModel by sellerName
+     * observed by @param selectedSeller
+     */
     fun fetchInfoByName(sellerName: String) {
        _selectedSeller.value = sellerList.find { it.sellerName.equals(sellerName, ignoreCase = true) }
     }
 
+    /**
+     * this fun provides sellerModel from the list which we got from repo
+     * @param loyaltyId is the query which finds the sellerModel by loyaltyId of the seller
+     */
     fun fetchInfoById(loyaltyId: String) {
        _selectedSeller.value = sellerList.find { it.loyaltyId.equals(loyaltyId, true) }
     }
