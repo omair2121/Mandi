@@ -6,6 +6,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +19,8 @@ import com.secrets.formers.ui.DetailsActivity.Companion.SELLER_NAME
 import com.secrets.formers.ui.DetailsActivity.Companion.WEIGHT
 import com.secrets.formers.data.models.SellerModel
 import com.secrets.formers.databinding.ActivityMainBinding
+import com.secrets.formers.utils.onDoneClick
+import com.secrets.formers.utils.onDropDownSelected
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -30,8 +33,6 @@ class MainActivity : AppCompatActivity() {
         initSpinner()
         observers()
         listeners()
-
-
     }
 
     private lateinit var viewModel: MandiViewModel
@@ -127,45 +128,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        binding.villageSp.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                viewModel.fetchInfoVillageByName(binding.villageSp.selectedItem.toString())
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
-            }
+        binding.villageSp.onDropDownSelected {
+            viewModel.fetchInfoVillageByName(binding.villageSp.selectedItem.toString())
         }
-        binding.unitSp.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                calculateAmount()
-            }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
-            }
+        binding.unitSp.onDropDownSelected {
+            calculateAmount()
         }
     }
 
-    private fun EditText.onDoneClick(fn: (TextView) -> Unit) {
-        this.setOnEditorActionListener { v, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                fn.invoke(v)
-                v.error = null
-                true
-            } else false
-        }
-    }
 
     private fun initViews() {
         setRoyaltyTv("--")
