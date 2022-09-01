@@ -1,7 +1,12 @@
 package com.secrets.formers.ui
 
+import android.content.Context
 import android.os.Bundle
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView
@@ -113,18 +118,18 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.sellerNameEt.onDoneClick {
-            viewModel.fetchInfoByName(binding.sellerNameEt.text.toString().trim())
+            fetchBySellerName()
         }
 
         binding.loyaltyEt.onDoneClick {
-            viewModel.fetchInfoById(binding.loyaltyEt.text.toString().trim())
+            fetchByLoyaltyId()
         }
 
         binding.sellerNameEt.setOnItemClickListener { parent, view, position, id ->
-            viewModel.fetchInfoByName(binding.sellerNameEt.text.toString().trim())
+            fetchBySellerName()
         }
         binding.loyaltyEt.setOnItemClickListener { parent, view, position, id ->
-            viewModel.fetchInfoById(binding.loyaltyEt.text.toString().trim())
+            fetchByLoyaltyId()
         }
 
         binding.weightEt.onDoneClick { v ->
@@ -141,6 +146,32 @@ class MainActivity : AppCompatActivity() {
         binding.unitSp.onDropDownSelected {
             calculateAmount()
         }
+    }
+
+    private fun fetchByLoyaltyId() {
+        viewModel.fetchInfoById(binding.loyaltyEt.text.toString().trim())
+    }
+
+    private fun fetchBySellerName() {
+        viewModel.fetchInfoByName(binding.sellerNameEt.text.toString().trim())
+    }
+
+    override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
+        if (event?.action == MotionEvent.ACTION_DOWN) {
+            val view = currentFocus
+            if (view is EditText || view is AutoCompleteTextView) {
+                view.clearFocus()
+                hideKeyboard()
+            }
+
+            calculateAmount()
+        }
+        return super.dispatchTouchEvent(event)
+    }
+
+    private fun hideKeyboard() {
+        val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
     }
 
     private fun resetViews() {
@@ -181,7 +212,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupDropDown(
         loyaltyEt: AppCompatAutoCompleteTextView,
-        sellersLoyaltyIds: MutableList<String>
+        sellersLoyaltyIds: MutableList<String>,
     ) {
         val sellerLoyaltyIdAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, sellersLoyaltyIds)
         loyaltyEt.setAdapter(sellerLoyaltyIdAdapter)
