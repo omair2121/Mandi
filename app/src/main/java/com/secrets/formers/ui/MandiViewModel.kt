@@ -8,12 +8,14 @@ import com.secrets.formers.data.models.SellerModel
 import com.secrets.formers.data.models.VillageModel
 
 class MandiViewModel(private val repo: MandiRepo): ViewModel() {
-    // village info
+
+// -------------------------------village info-------------------------------------- //
+
     private var _selectedVillage = MutableLiveData<VillageModel?>()
     val selectedVillage: LiveData<VillageModel?>
         get() = _selectedVillage
 
-    private val villageList = repo.getVillageList()
+    private val villageList by lazy { repo.getVillageList() }
 
     /**
      * it extracts village name from the model and provides a list,
@@ -30,12 +32,13 @@ class MandiViewModel(private val repo: MandiRepo): ViewModel() {
         _selectedVillage.value = villageList.find { it.villageName.equals(village, true)}
     }
 
-    // seller info
+// -------------------------------seller info-------------------------------------- //
+
     private var _selectedSeller = MutableLiveData<SellerModel?>()
     val selectedSeller: LiveData<SellerModel?>
         get() = _selectedSeller
 
-    private val sellerList = repo.getSellerList()
+    private val sellerList by lazy { repo.getSellerList() }
 
     /**
      * this fun provides sellerModel from the list which we got from repo
@@ -54,11 +57,13 @@ class MandiViewModel(private val repo: MandiRepo): ViewModel() {
        _selectedSeller.value = sellerList.find { it.loyaltyId.equals(loyaltyId, true) }
     }
 
-
     fun getSellersNames() = mutableListOf<String>().apply {sellerList.mapTo(this) { it.sellerName } }
 
     fun getSellersLoyaltyIds() = mutableListOf<String>().apply {sellerList.mapTo(this) { it.loyaltyId } }
 
+    /**
+     * reset the selected village and seller values
+     */
     fun resetValues() {
         _selectedSeller.value = null
         _selectedVillage.value = null
