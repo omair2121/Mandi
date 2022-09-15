@@ -4,10 +4,22 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.secrets.formers.data.MandiRepo
+import com.secrets.formers.data.models.CropModel
 import com.secrets.formers.data.models.SellerModel
 import com.secrets.formers.data.models.VillageModel
 
 class MandiViewModel(private val repo: MandiRepo): ViewModel() {
+//    _----------------------Crop -----------//
+    private val _selectedCrop = MutableLiveData<CropModel>()
+    val selectedCrop: LiveData<CropModel>
+        get() = _selectedCrop
+
+    fun getCropName() = mutableListOf<String>().apply { selectedVillage.value?.cropList?.mapTo(this) { it.cropName } }
+
+    fun setSelectedCropValue(cropName: String) {
+        _selectedCrop.value = _selectedVillage.value?.cropList?.find { it.cropName.equals(cropName, true) }
+    }
+
 
 // -------------------------------village info-------------------------------------- //
 

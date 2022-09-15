@@ -7,6 +7,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.EditText
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView
@@ -30,6 +31,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         initViews()
         initViewModel()
+        initDefaultDropdown(viewModel.getVillagesName(), binding.villageSp)
+        initDefaultDropdown(viewModel.getCropName(), binding.cropSp)
         initSpinner()
         observers()
         listeners()
@@ -45,6 +48,8 @@ class MainActivity : AppCompatActivity() {
             populateViews(it)
         }
         viewModel.selectedVillage.observe(this) {
+            if (it?.cropList?.isNotEmpty() == true)
+                initDefaultDropdown(viewModel.getCropName(), binding.cropSp)
             calculateAmount()
         }
     }
@@ -61,12 +66,15 @@ class MainActivity : AppCompatActivity() {
     private var weight = 0f
     private var loyaltyPoints = 0f
     private var villagePrice = 0f
+    private var cropPrice = 0f
     private fun calculateAmount() {
         val villageModel = viewModel.selectedVillage.value
         val sellerModel = viewModel.selectedSeller.value
+        val cropModel = viewModel.selectedCrop.value
 
         loyaltyPoints = sellerModel?.points ?: 0.98f
         villagePrice = villageModel?.price ?: 0.0f
+        cropPrice = cropModel?.cropPrice?.toFloat() ?: 0.0f
         weight = if (!binding.weightEt.text.isNullOrBlank()) binding.weightEt.text.toString().toFloat() else 0f
 
         // villagePrice is of per kg,
@@ -74,7 +82,7 @@ class MainActivity : AppCompatActivity() {
 //        if (binding.unitSp.selectedItem.toString() == "Kilos") weight /= 1000
 
 
-        amount =  loyaltyPoints * villagePrice * weight
+        amount =  loyaltyPoints * /*villagePrice*/ cropPrice * weight
         if (amount > 0) {
             setAmountTv(String.format("%.2f", amount))
             setRoyaltyTv(loyaltyPoints.toString())
@@ -146,6 +154,13 @@ class MainActivity : AppCompatActivity() {
         binding.unitSp.onDropDownSelected {
             calculateAmount()
         }
+
+        binding.cropSp.onDropDownSelected {
+            (binding.cropSp.selectedItem as? String)?.let {_cropName ->
+                viewModel.setSelectedCropValue(_cropName)
+            }
+            calculateAmount()
+        }
     }
 
     private fun fetchByLoyaltyId() {
@@ -203,11 +218,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initSpinner() {
-        val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, viewModel.getVillagesName())
-        binding.villageSp.adapter = arrayAdapter
-
         setupDropDown(binding.sellerNameEt, viewModel.getSellersNames())
         setupDropDown(binding.loyaltyEt, viewModel.getSellersLoyaltyIds())
+
+    }
+
+    private fun initDefaultDropdown (list: List<Any>, sp: Spinner) {
+        val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, list)
+        sp.adapter = arrayAdapter
     }
 
     private fun setupDropDown(

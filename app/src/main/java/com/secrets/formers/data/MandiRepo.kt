@@ -1,19 +1,25 @@
 package com.secrets.formers.data
 
+import com.secrets.formers.data.models.CropModel
 import com.secrets.formers.data.models.SellerModel
 import com.secrets.formers.data.models.VillageModel
 
 class MandiRepo {
-
+// wheat, corn and rice
+fun getCrop(wheatPrice: Int = 13, cornPrice: Int = 8, ricePrice: Int = 11) = mutableListOf<CropModel>().apply {
+    add(CropModel("Wheat", wheatPrice))
+    add(CropModel("Corn", cornPrice))
+    add(CropModel("Rice", ricePrice))
+}
 
     fun getVillageList() = mutableListOf<VillageModel>().apply {
-        add(VillageModel("Jyotinagar", 0.77652f))
-        add(VillageModel("Ramnagar", 120.08f))
-        add(VillageModel("Neemgaon", 8.50f))
-        add(VillageModel("Jhodge", 81.60f))
-        add(VillageModel("Piplegaon", 5.90f))
-        add(VillageModel("Kusumbe", 11.00f))
-        add(VillageModel("Ravalgaon", 31.10f))
+        add(VillageModel("Jyotinagar", 0.77652f, getCrop(wheatPrice = 15)))
+        add(VillageModel("Ramnagar", 120.08f, getCrop(ricePrice = 9)))
+        add(VillageModel("Neemgaon", 8.50f, getCrop(wheatPrice = 9, ricePrice = 5)))
+        add(VillageModel("Jhodge", 81.60f, getCrop()))
+        add(VillageModel("Piplegaon", 5.90f, getCrop(wheatPrice = 16)))
+        add(VillageModel("Kusumbe", 11.00f, getCrop(ricePrice = 9)))
+        add(VillageModel("Ravalgaon", 31.10f, getCrop(cornPrice = 5)))
     }
 
     fun getSellerList() = mutableListOf<SellerModel>().apply {

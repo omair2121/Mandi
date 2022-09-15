@@ -130,6 +130,50 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/crop_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/bg_light_green"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_marginTop="20dp"
+                style="@style/secondary_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:text="@string/crop" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/bg_white_round">
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/crop_sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="0dp"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="15dp"
+                    android:src="@drawable/ic_down_arrow"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@id/crop_sp"
+                    app:layout_constraintEnd_toEndOf="@id/crop_sp"
+                    app:layout_constraintTop_toTopOf="@id/crop_sp" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/weight_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
